@@ -19,10 +19,22 @@ export default class Customers extends Component {
   }
 
   //Function to get the Customer Data from json
+  //getCustomerData() {
+    //axios.get('assets/samplejson/customerlist.json').then(response => {
+      //this.setState({customerList: response})
+    //})
+  //};
+
+// Function to get the Customer Data
+  // ✅ changed this part to call your Node backend instead of local JSON
   getCustomerData() {
-    axios.get('assets/samplejson/customerlist.json').then(response => {
-      this.setState({customerList: response})
-    })
+    axios.get('node-app-alb-ByDishant-1651029899.us-east-1.elb.amazonaws.com/api/customers')
+      .then(response => {
+        this.setState({ customerList: response });
+      })
+      .catch(error => {
+        console.error('Error fetching customer data:', error);
+      });
   };
 
   render() {
