@@ -28,7 +28,7 @@ export default class Customers extends Component {
 // Function to get the Customer Data
   // ✅ changed this part to call your Node backend instead of local JSON
   getCustomerData() {
-    axios.get('node-app-alb-ByDishant-1651029899.us-east-1.elb.amazonaws.com/api/customers')
+    axios.get('http://node-app-alb-ByDishant-1651029899.us-east-1.elb.amazonaws.com/api/customers')
       .then(response => {
         this.setState({ customerList: response });
       })
