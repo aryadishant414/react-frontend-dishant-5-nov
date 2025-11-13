@@ -18,7 +18,7 @@ export default class Customers extends Component {
   }
 
   getCustomerData() {
-    axios.get('https://d3rgransj4iccr.cloudfront.net/api/customers')
+    axios.get('https://bs.aryadishant414.online/api/customers')
       .then(response => {
         console.log("✅ API Response:", response.data);
         this.setState({ customerList: response.data });
