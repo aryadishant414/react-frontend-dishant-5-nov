@@ -9,6 +9,10 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    permissions:            # ADDED FOR OIDC
+      id-token: write       # ADDED FOR OIDC
+      contents: read        # ADDED FOR OIDC
+
     steps:
       # Step 1: Checkout your code
       - name: Checkout code
@@ -18,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20  # Using Node 20 for your React app
+          node-version: 20  
 
       # Step 3: Install dependencies
       - name: Install dependencies
@@ -28,16 +32,14 @@ jobs:
       - name: Build React app
         run: npm run build
 
-      # Step 5: Configure AWS credentials
-      - name: Configure AWS credentials
+      # Step 5: Configure AWS (USING OIDC NOW)
+      - name: Configure AWS credentials (OIDC)      # CHANGED
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::<YOUR_AWS_ACCOUNT_ID>:role/GitHubOIDC-S3-Deployment-Role   # ADDED FOR OIDC
           aws-region: ${{ secrets.AWS_REGION }}
 
       # Step 6: Deploy to S3
       - name: Deploy to S3
         run: |
-          aws --version
           aws s3 sync build/ s3://${{ secrets.S3_BUCKET }} --delete
