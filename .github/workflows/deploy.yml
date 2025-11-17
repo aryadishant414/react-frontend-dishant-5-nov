@@ -36,7 +36,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)      # CHANGED
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::<YOUR_AWS_ACCOUNT_ID>:role/GitHubOIDC-S3-Deployment-Role   # ADDED FOR OIDC
+          role-to-assume: arn:aws:iam::891377387512:role/GitHubOIDC-S3-Deployment-Role   # ADDED FOR OIDC
           aws-region: ${{ secrets.AWS_REGION }}
 
       # Step 6: Deploy to S3
